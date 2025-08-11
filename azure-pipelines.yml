@@ -21,29 +21,18 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      set -e  # Exit on error
-
-      echo "Installing Databricks CLI v2..."
+      # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      echo "Installing uv CLI..."
-      UV_VERSION="0.1.18"  # Update to latest if needed
-      curl -L -o uv.tar.gz https://github.com/astral-sh/uv/releases/download/${UV_VERSION}/uv-x86_64-unknown-linux-gnu.tar.gz
-      tar -xzf uv.tar.gz
-      chmod +x uv
-      mv uv /usr/local/bin/
+      # Install uv and add it to PATH
+      curl -Ls https://install.uv.dev | sh
+      export PATH="$HOME/.cargo/bin:$PATH"
 
-      echo "Verifying uv installation..."
-      echo "uv path: $(which uv)"
-      uv --version
-
-      echo "Authenticating to Databricks via Azure login..."
+      # Authenticate using Azure CLI context
       databricks auth azure-login --host $DATABRICKS_HOST
 
-      echo "Validating Databricks asset bundle..."
+      # Validate and deploy the asset bundle
       databricks bundle validate
-
-      echo "Deploying Databricks asset bundle to 'dev' target..."
       databricks bundle deploy --target dev
   displayName: 'Deploy Databricks Asset Bundle to Dev'
 

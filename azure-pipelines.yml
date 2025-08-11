@@ -7,16 +7,22 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - group: DatabricksSecrets
+  DATABRICKS_HOST: 'https://<your-databricks-workspace>.azuredatabricks.net'
 
 steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
 
-- script: |
-    pip install databricks-cli
-    databricks auth login 
-    databricks bundle validate
-    databricks bundle deploy 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'xyz'  # Your service connection name
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      pip install databricks-cli
+      # Authenticate using service principal from the service connection
+      databricks auth login --host $DATABRICKS_HOST --azure-login
+      databricks bundle validate
+      databricks bundle deploy -t dev -p dev
   displayName: 'Deploy Databricks Asset Bundle to Dev'

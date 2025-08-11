@@ -1,0 +1,14 @@
+# The main pipeline for dab_dev
+resources:
+  pipelines:
+    dab_dev_pipeline:
+      name: dab_dev_pipeline
+      catalog: dev
+      schema: dab_dev_${bundle.target}
+      serverless: true
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src

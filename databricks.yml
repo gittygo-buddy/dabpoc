@@ -1,7 +1,7 @@
 # This is a Databricks asset bundle definition for dab_dev.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
-  name: dab_dev
+  name: dab_dev_
   uuid: 25da30de-b8b5-44de-9101-a7761111634a
 
 artifacts:
@@ -17,7 +17,7 @@ targets:
   dev:
     # The default target uses 'mode: development' to create a development copy.
     # - Deployed resources get prefixed with '[dev my_user_name]'
-    # - Any job schedules and triggers are paused by default.
+    # - Any job schedules and triggers are paused by default. jj
     # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
     mode: development
     default: true

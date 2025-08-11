@@ -15,6 +15,11 @@ steps:
     versionSpec: '3.x'
   displayName: 'Set up Python'
 
+- script: |
+    python -m pip install --upgrade pip
+    pip install uv
+  displayName: 'Install uv via pip'
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'dab_poc'
@@ -25,9 +30,6 @@ steps:
 
       # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-      # Install uv and ensure it's in PATH
-      curl -Ls https://install.uv.dev | sh
-      export PATH="$HOME/.local/bin:$PATH"
 
       # Confirm uv is installed
       uv --version

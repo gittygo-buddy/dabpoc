@@ -16,9 +16,12 @@ steps:
   displayName: 'Set up Python'
 
 - script: |
+    python --version
     python -m pip install --upgrade pip
+    pip --version
     pip install uv
-  displayName: 'Install uv via pip'
+    uv --version
+  displayName: 'Install uv via pip and show versions'
 
 - task: AzureCLI@2
   inputs:
@@ -31,9 +34,8 @@ steps:
       # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # Confirm uv is installed
-      uv --version
-
+      # Confirm Databricks CLI version
+      databricks --version
       # Authenticate using Azure CLI context
       databricks auth azure-login --host $DATABRICKS_HOST
 

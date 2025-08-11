@@ -14,28 +14,24 @@ steps:
   inputs:
     versionSpec: '3.x'
   displayName: 'Set up Python'
-  
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'dab_poc'
-    scriptType: 'pscore'
+    scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
       # Install Databricks CLI v2
-      Invoke-WebRequest -Uri https://raw.githubusercontent.com/databricks/setup-cli/main/install.ps1 -OutFile install.ps1
-      .\install.ps1
+      curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # Install uv (Rust-based tool)
-      Invoke-WebRequest -Uri https://install.uv.dev -OutFile install-uv.ps1
-      .\install-uv.ps1
+      # Install uv and add it to PATH
+      curl -Ls https://install.uv.dev | sh
+      export PATH="$HOME/.cargo/bin:$PATH"
 
-      # Add uv to PATH
-      $env:Path += ";$env:USERPROFILE\.cargo\bin"
+      # Authenticate using Azure CLI context
+      databricks auth azure-login --host $DATABRICKS_HOST
 
-      # Authenticate with Databricks using Azure CLI context
-      databricks auth azure-login --host $env:DATABRICKS_HOST
-
-      # Validate and deploy
+      # Validate and deploy the asset bundle
       databricks bundle validate
       databricks bundle deploy --target dev
   displayName: 'Deploy Databricks Asset Bundle to Dev'

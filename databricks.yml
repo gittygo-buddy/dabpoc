@@ -1,7 +1,7 @@
 # This is a Databricks asset bundle definition for dab_dev.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
-  name: dab_dev_
+  name: dab_dev
   uuid: 25da30de-b8b5-44de-9101-a7761111634a
 
 artifacts:

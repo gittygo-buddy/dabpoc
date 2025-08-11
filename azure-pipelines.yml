@@ -21,8 +21,16 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      # Install uv (used by Databricks CLI for Python packaging)
+      curl -Ls https://install.uv.dev | sh
+
+      # Authenticate using Azure CLI context
       databricks auth azure-login --host $DATABRICKS_HOST
+
+      # Validate and deploy the asset bundle
       databricks bundle validate
       databricks bundle deploy --target dev
   displayName: 'Deploy Databricks Asset Bundle to Dev'

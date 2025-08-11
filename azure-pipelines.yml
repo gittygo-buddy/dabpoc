@@ -28,7 +28,8 @@ steps:
 
       # Install uv and ensure it's in PATH
       curl -Ls https://install.uv.dev | sh
-      export PATH="$HOME/.local/bin:$PATH"
+      mv ~/.local/bin/uv /usr/local/bin/
+
 
       # Confirm uv is available
       echo "uv path: $(which uv)"

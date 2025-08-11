@@ -24,8 +24,9 @@ steps:
       # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # Install uv (used by Databricks CLI for Python packaging)
+      # Install uv and add it to PATH
       curl -Ls https://install.uv.dev | sh
+      export PATH="$HOME/.cargo/bin:$PATH"
 
       # Authenticate using Azure CLI context
       databricks auth azure-login --host $DATABRICKS_HOST
@@ -34,3 +35,4 @@ steps:
       databricks bundle validate
       databricks bundle deploy --target dev
   displayName: 'Deploy Databricks Asset Bundle to Dev'
+

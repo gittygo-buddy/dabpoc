@@ -24,9 +24,15 @@ steps:
       # Install Databricks CLI v2
       curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # Install uv and add it to PATH
+      # Install uv and ensure it's in PATH
       curl -Ls https://install.uv.dev | sh
-      export PATH="$HOME/.cargo/bin:$PATH"
+
+      # Add uv to PATH (default install location is ~/.local/bin)
+      export PATH="$HOME/.local/bin:$PATH"
+
+      # Confirm uv is available
+      which uv || echo "uv not found in PATH"
+
 
       # Authenticate using Azure CLI context
       databricks auth azure-login --host $DATABRICKS_HOST

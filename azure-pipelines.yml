@@ -16,7 +16,7 @@ steps:
 
 - script: |
     pip install databricks-cli
-    databricks auth login --host $DATABRICKS_HOST --client-id $DATABRICKS_CLIENT_ID --client-secret $DATABRICKS_CLIENT_SECRET --azure-login-app-id $DATABRICKS_CLIENT_ID --azure-login-app-secret $DATABRICKS_CLIENT_SECRET --azure-login-tenant-id $DATABRICKS_TENANT_ID
+    databricks auth login 
     databricks bundle validate
     databricks bundle deploy 
   displayName: 'Deploy Databricks Asset Bundle to Dev'

@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  DATABRICKS_HOST: 'https://<your-databricks-workspace>.azuredatabricks.net'
+  DATABRICKS_HOST: 'https://adb-550289489940613.13.azuredatabricks.net'
 
 steps:
 - task: UsePythonVersion@0
@@ -16,7 +16,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'xyz'  # Your service connection name
+    azureSubscription: 'dab_poc'  # Your service connection name
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |

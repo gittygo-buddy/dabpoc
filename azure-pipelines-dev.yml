@@ -6,8 +6,11 @@
 pool:
   vmImage: 'ubuntu-latest'
 
+
 variables:
-  DATABRICKS_HOST: 'https://adb-550289489940613.13.azuredatabricks.net/'
+- group: dev
+
+  # DATABRICKS_HOST: 'https://adb-550289489940613.13.azuredatabricks.net/'
 
 steps:
 - task: UsePythonVersion@0
@@ -37,7 +40,7 @@ steps:
       # Confirm Databricks CLI version
       databricks --version
       # Authenticate using Azure CLI context
-      databricks auth azure-login --host $DATABRICKS_HOST
+      databricks auth azure-login --host $(DATABRICKS_HOST)
 
       # Validate and deploy the asset bundle
       databricks bundle validate
